@@ -10,15 +10,15 @@ Rectangular domain $\Omega=[0,L]\times[-h/2,h/2]$, plane-strain isotropic elasti
 
 **Deformed configuration** (normalized displacement, load pushes the tip upward since `t_y(y) ≥ 0` everywhere on the loaded edge, but plotted downward for a better understanding):
 
-![deformed](beam_figs/Deformed.pdf)
+![deformed](beam_figs/Deformed.png)
 
 **Von Mises stress field** — maximum at the clamped end, top and bottom fibers, as expected for a bent beam:
 
-![von mises](beam_figs/Von_Mises.pdf)
+![von mises](beam_figs/Von_Mises.png)
 
 **Self-convergence** (error against a fine-mesh reference solution, not against Timoshenko — see note below): observed order ≈ 2.1, matching P1 theory.
 
-![convergence](beam_figs/convergence.pdf)
+![convergence](beam_figs/convergence.png)
 
 ## Comparison against Timoshenko formula
 
