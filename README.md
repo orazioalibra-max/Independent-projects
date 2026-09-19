@@ -7,6 +7,7 @@ Self-directed projects in numerical methods for PDEs, built to extend my coursew
 | # | Project | Status |
 |---|---------|--------|
 | 1 | Linear Elasticity — Cantilever Beam | Done |
-| 2 | Linear-Quadratic Optimal Control (Poisson) | In progress |
- 
+| 2 | Linear-Quadratic Optimal Control (Poisson) | Done |
+| 3 | Control-Constrained Optimal Control (Semismooth Newton) | In progress |
+
 More to follow.

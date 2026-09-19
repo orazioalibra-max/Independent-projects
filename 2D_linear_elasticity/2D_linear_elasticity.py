@@ -34,9 +34,6 @@ I=h**3/12 #moment of inertia for rectangulus
 G=E/(2*(1+nu)) #shear modulus (tangent deformation)
 As=(5/6)*h #unitary thickness of the beam (rectangular cross-section)
 
-# def ty(y): # trasverse shear stress distribution (only on x==L)
-#     return (P/(2*I))*(h**2/4-y**2) 
-
 C=(E/((1+nu)*(1-2*nu)))*np.array([[1-nu,nu,0],
                                     [nu,1-nu,0],
                                     [0,0,(1-2*nu)/2]])
@@ -53,8 +50,6 @@ def create_trimesh(L,h,nx,ny): #create a triangular mesh
         for y in ys:     
             nodes.append([x, y])
     nodes=np.array(nodes) # shape ((nx+1)*(ny+1), 2)
-    # plt.plot(X,Y,'o')
-    # plt.show()
 
     def idx(i, j): #returns the index of the node wrt nodes array
         return i*(ny+1)+j
@@ -173,7 +168,7 @@ def solve_beam(nx,ny):
     dof, n_dof = dof_definition(nodes, ny)
 
     #Build global stiffness matrix and rhs
-    A = sp.lil_matrix((n_dof, n_dof)) #2 dof per node (u_x,u_y)
+    A = sp.lil_matrix((n_dof, n_dof))
 
     for elem in range(len(elements)):
         idxs=elements[elem,:]
@@ -186,7 +181,6 @@ def solve_beam(nx,ny):
             global_dofs[2*i]=2*idxs[i] #global u_x and u_y indexes in nodes
             global_dofs[(2*i)+1]=(2*idxs[i])+1
 
-            #filter dof from dirichlet nodes
             reduced_dofs[2*i]=dof[global_dofs[2*i]]
             reduced_dofs[(2*i)+1]=dof[global_dofs[(2*i)+1]]
 
@@ -195,7 +189,7 @@ def solve_beam(nx,ny):
         A_elem=stiffness_matrix(B_elem,C,area)
         for i in range(6):
             for j in range(6):
-                if reduced_dofs[i]!=-1 and reduced_dofs[j]!=-1:
+                if reduced_dofs[i]!=-1 and reduced_dofs[j]!=-1: #filter dof from dirichlet nodes
                     A[reduced_dofs[i], reduced_dofs[j]]+=A_elem[i,j]
 
     F = second_member(nodes, nx, ny, dof, n_dof)
